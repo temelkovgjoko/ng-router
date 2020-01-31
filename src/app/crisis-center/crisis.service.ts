@@ -14,13 +14,13 @@ export class CrisisService {
 
   getCrises(): Observable<Crisis[]> {
     // TODO: send the message _after_ fetching the heroes
-    this.messageService.add("CrisisService: fetched crises");
+    this.messageService.add("HeroService: fetched heroes");
     return of(CRISES);
   }
 
   getCrisis(id: number | string) {
     return this.getCrises().pipe(
-      map((crises: Crisis[]) => crises.find(crisis => crisis.id === +id))
+      map((crises: Crisis[]) => crises.find(crises => crises.id === +id))
     );
   }
 }

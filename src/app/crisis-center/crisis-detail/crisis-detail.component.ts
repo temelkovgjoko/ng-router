@@ -3,11 +3,11 @@ import { Component, OnInit } from "@angular/core";
 import { Router, ActivatedRoute, ParamMap } from "@angular/router";
 import { Observable } from "rxjs";
 
-import { HeroService, CrisisService } from "../crisis.service";
+import { CrisisService } from "../crisis.service";
 import { Crisis } from "../crisis";
 
 @Component({
-  selector: "app-hero-detail",
+  selector: "app-crisis-detail",
   templateUrl: "./crisis-detail.component.html",
   styleUrls: ["./crisis-detail.component.css"]
 })
@@ -26,8 +26,11 @@ export class CrisisDetailComponent implements OnInit {
     );
   }
 
-  goToHeroes(crisis: Crisis) {
+  goToCrises(crisis: Crisis) {
     let crisisId = crisis ? crisis.id : null;
-    this.router.navigate(["/crises", { id: crisisId, foo: "foo" }]);
+    // this.router.navigate(["/crises", { id: crisisId, foo: "foo" }]);
+    this.router.navigate(["../", { id: crisisId, foo: "foo" }], {
+      relativeTo: this.route
+    });
   }
 }

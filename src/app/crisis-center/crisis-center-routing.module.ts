@@ -1,14 +1,14 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 
-import { CrisisListComponent } from "../crisis-list/crisis-list.component";
 import { CrisisDetailComponent } from "./crisis-detail/crisis-detail.component";
+import { CrisisListComponent } from "./crisis-list/crisis-list.component";
 import { CrisisCenterComponent } from "./crisis-center/crisis-center.component";
 import { CrisisCenterHomeComponent } from "./crisis-center-home/crisis-center-home.component";
 
-const crisesRoutes: Routes = [
+const heroesRoutes: Routes = [
   {
-    path: "crisis-center",
+    path: "",
     component: CrisisCenterComponent,
     children: [
       {
@@ -30,7 +30,7 @@ const crisesRoutes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(crisesRoutes)],
+  imports: [RouterModule.forChild(heroesRoutes)],
   exports: [RouterModule]
 })
-export class CrisesRoutingModule {}
+export class HeroesRoutingModule {}
