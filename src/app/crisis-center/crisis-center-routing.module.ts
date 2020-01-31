@@ -5,10 +5,12 @@ import { CrisisDetailComponent } from "./crisis-detail/crisis-detail.component";
 import { CrisisListComponent } from "./crisis-list/crisis-list.component";
 import { CrisisCenterComponent } from "./crisis-center/crisis-center.component";
 import { CrisisCenterHomeComponent } from "./crisis-center-home/crisis-center-home.component";
+import { CanDeactivateGuard } from "../can-deactivate.guard";
+import { CrisisDetailResolverService } from "./crisis-detail-resolver.service";
 
-const heroesRoutes: Routes = [
+const crisisRoutes: Routes = [
   {
-    path: "",
+    path: "crisis-center",
     component: CrisisCenterComponent,
     children: [
       {
@@ -17,7 +19,11 @@ const heroesRoutes: Routes = [
         children: [
           {
             path: ":id",
-            component: CrisisDetailComponent
+            component: CrisisDetailComponent,
+            canDeactivate: [CanDeactivateGuard],
+            resolve: {
+              crisis: CrisisDetailResolverService
+            }
           },
           {
             path: "",
@@ -30,7 +36,7 @@ const heroesRoutes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(heroesRoutes)],
+  imports: [RouterModule.forChild(crisisRoutes)],
   exports: [RouterModule]
 })
 export class HeroesRoutingModule {}
