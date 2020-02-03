@@ -1,34 +1,32 @@
-import { Injectable } from "@angular/core";
-import { Crisis } from "./crisis";
-import { CrisisService } from "./crisis.service";
+
+import { Injectable }             from '@angular/core';
 import {
-  Router,
-  ActivatedRouteSnapshot,
+  Router, Resolve,
   RouterStateSnapshot,
-  Resolve
-} from "@angular/router";
-import { Observable, of, EMPTY } from "rxjs";
-import { take, mergeMap } from "rxjs/operators";
+  ActivatedRouteSnapshot
+}                                 from '@angular/router';
+import { Observable, of, EMPTY }  from 'rxjs';
+import { mergeMap, take }         from 'rxjs/operators';
+
+import { CrisisService }  from './crisis.service';
+import { Crisis } from './crisis';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root',
 })
 export class CrisisDetailResolverService implements Resolve<Crisis> {
   constructor(private cs: CrisisService, private router: Router) {}
 
-  resolve(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ): Observable<Crisis> | Observable<never> {
-    let id = route.paramMap.get("id");
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Crisis> | Observable<never> {
+    let id = route.paramMap.get('id');
 
     return this.cs.getCrisis(id).pipe(
       take(1),
       mergeMap(crisis => {
         if (crisis) {
           return of(crisis);
-        } else {
-          this.router.navigate(["/crisis-center"]);
+        } else { // id not found
+          this.router.navigate(['/crisis-center']);
           return EMPTY;
         }
       })
